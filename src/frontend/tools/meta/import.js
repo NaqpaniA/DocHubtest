@@ -33,22 +33,80 @@ const fs = require('fs');
 const YAML = require('yaml');
 const parser = require('./parser');
 
-const sourceFileName = path.resolve(process.env.INIT_CWD, process.argv[2]);
-const distanationFileName = path.resolve(process.env.INIT_CWD, 'manifest.yaml');
+function getSafeOutputPath(filename, baseDir) {
+        if (!filename || typeof filename !== 'string') {
+                throw new Error('Unsafe file path detected: empty filename');
+        }
 
-// eslint-disable-next-line no-console
-console.log('Import file: ', sourceFileName);
+        const normalizedBaseDir = path.resolve(baseDir || process.cwd());
+        if (path.isAbsolute(filename)) {
+                throw new Error(`Unsafe file path detected: ${filename}`);
+        }
 
-fs.readFile(sourceFileName, 'utf8' , (err, yaml) => {
-	if (err) {
-		// eslint-disable-next-line no-console
-		console.error(err);
-		return;
-	}
+        const normalizedFilename = path.normalize(filename);
+        if (normalizedFilename === '..' || normalizedFilename.includes(`..${path.sep}`) || normalizedFilename.startsWith('..')) {
+                throw new Error(`Unsafe file path detected: ${filename}`);
+        }
 
-	parser.parse(YAML.parse(yaml));
-	fs.writeFileSync(distanationFileName, YAML.stringify(parser.context));
-	for (const filename in parser.files) {
-		fs.writeFileSync(path.resolve(process.env.INIT_CWD, filename), parser.files[filename]);
-	}
-});
+        const resolvedPath = path.resolve(normalizedBaseDir, normalizedFilename);
+        if (resolvedPath !== normalizedBaseDir && !resolvedPath.startsWith(`${normalizedBaseDir}${path.sep}`)) {
+                throw new Error(`Unsafe file path detected: ${filename}`);
+        }
+
+        return resolvedPath;
+}
+
+function validateParserFiles(files, baseDir) {
+        return Object.entries(files || {}).map(([filename, content]) => ({
+                filename,
+                outputPath: getSafeOutputPath(filename, baseDir),
+                content
+        }));
+}
+
+function writeParserFiles(validatedFiles) {
+        for (const file of validatedFiles) {
+                fs.mkdirSync(path.dirname(file.outputPath), { recursive: true });
+                fs.writeFileSync(file.outputPath, file.content);
+        }
+}
+
+function importManifest(sourceFileName, options = {}) {
+        const baseDir = path.resolve(options.baseDir || process.env.INIT_CWD || process.cwd());
+        const parserModule = options.parserModule || parser;
+        const resolvedSource = path.isAbsolute(sourceFileName)
+                ? sourceFileName
+                : path.resolve(baseDir, sourceFileName);
+
+        const yaml = fs.readFileSync(resolvedSource, 'utf8');
+        parserModule.parse(YAML.parse(yaml));
+
+        const validatedFiles = validateParserFiles(parserModule.files, baseDir);
+        const distanationFileName = path.resolve(baseDir, 'manifest.yaml');
+        fs.mkdirSync(path.dirname(distanationFileName), { recursive: true });
+        fs.writeFileSync(distanationFileName, YAML.stringify(parserModule.context));
+        writeParserFiles(validatedFiles);
+}
+
+if (require.main === module) {
+        const sourceFileName = process.argv[2];
+        const baseDir = process.env.INIT_CWD || process.cwd();
+
+        // eslint-disable-next-line no-console
+        console.log('Import file: ', path.resolve(baseDir, sourceFileName));
+
+        try {
+                importManifest(sourceFileName, { baseDir });
+        } catch (err) {
+                // eslint-disable-next-line no-console
+                console.error(err);
+                process.exitCode = 1;
+        }
+}
+
+module.exports = {
+        getSafeOutputPath,
+        importManifest,
+        validateParserFiles,
+        writeParserFiles
+};
