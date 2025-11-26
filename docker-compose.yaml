@@ -17,7 +17,7 @@ services:
       - "8080:8080"
 
   plantuml:
-    image: seaf/plantuml-server:jetty
+    image: plantuml/plantuml-server:jetty-1.2023.9
     container_name: plantuml
     ports:
       - "8079:8080"
