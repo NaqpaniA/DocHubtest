@@ -1,0 +1,4 @@
+files:
+  "../evil.txt": "malicious content"
+context:
+  manifest: true
