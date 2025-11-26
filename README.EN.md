@@ -116,6 +116,9 @@ docker-compose up --build
 ```bash
 docker-compose up plantuml
 ```
+> The project expects PlantUML Server **1.2023.9+**. If you have an older image
+> cached locally, run `docker-compose pull plantuml` to fetch the updated
+> version before starting the container.
 1. Configure `.env`
 ```dotenv
 VUE_APP_DOCHUB_GITLAB_URL=https://gitlab.example.com
