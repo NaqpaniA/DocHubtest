@@ -88,7 +88,7 @@ let config = {
 	},
 	transpileDependencies: ['vueitfy'],
 	chainWebpack: (config) => {
-		config.module.rules.delete("svg");
+		config.module.rules.delete('svg');
 	},
 	configureWebpack: {
 		cache: (process.env.VUE_APP_DOCHUB_BUILDING_CACHE || 'memory').toLowerCase() === 'filesystem'
