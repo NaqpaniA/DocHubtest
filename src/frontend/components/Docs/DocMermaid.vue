@@ -46,33 +46,32 @@
   import DocMixin from './DocMixin';
 
   import {diagram} from  '@mermaid-js/mermaid-mindmap/dist/diagram-definition.ae1f7a29';
-  import {diagram as timeline_diagram} from 'mermaid/dist/timeline-definition-732a2638';
-  import {diagram as c4Diagram} from 'mermaid/dist/c4Diagram-817c8e44';
-  import {diagram as classDiagram} from 'mermaid/dist/classDiagram-48ab76fb';
-  import {diagram as classDiagram_v2} from 'mermaid/dist/classDiagram-v2-8ecb0bfc';
-  import {diagram as erDiagram} from 'mermaid/dist/erDiagram-9cfc3649';
-  import {diagram as flowchart} from 'mermaid/dist/flowchart-elk-definition-e097735e';
-  import {diagram as flowDiagram} from 'mermaid/dist/flowDiagram-61eb444c';
-  import {diagram as flowDiagram_v2} from 'mermaid/dist/flowDiagram-v2-2f8f667a';
-  import {diagram as ganttDiagram} from 'mermaid/dist/ganttDiagram-db6931fb';
-  import {diagram as gitGraphDiagram} from 'mermaid/dist/gitGraphDiagram-6b463803';
-  import {diagram as infoDiagram} from 'mermaid/dist/infoDiagram-a336098b';
-  import {diagram as journeyDiagram} from 'mermaid/dist/journeyDiagram-deae3313';
-  import {diagram as mindmap_diagram} from 'mermaid/dist/mindmap-definition-617cf8dd';
-  import {diagram as pieDiagram} from 'mermaid/dist/pieDiagram-a5166659';
-  import {diagram as quadrantDiagram} from 'mermaid/dist/quadrantDiagram-6c355bbc';
-  import {diagram as requirementDiagram} from 'mermaid/dist/requirementDiagram-4038b16c';
-  import {diagram as sankeyDiagram} from 'mermaid/dist/sankeyDiagram-6db3d513';
-  import {diagram as sequenceDiagram} from 'mermaid/dist/sequenceDiagram-465a088a';
-  import {diagram as stateDiagram} from 'mermaid/dist/stateDiagram-b620d43f';
-  import {diagram as stateDiagram_v2} from 'mermaid/dist/stateDiagram-v2-2671c3d1';
-  import {diagram as xychartDiagram} from 'mermaid/dist/xychartDiagram-f746c04c';
+  import {diagram as timeline_diagram} from 'mermaid/dist/timeline-definition-85554ec2';
+  import {diagram as c4Diagram} from 'mermaid/dist/c4Diagram-3d4e48cf';
+  import {diagram as classDiagram} from 'mermaid/dist/classDiagram-70f12bd4';
+  import {diagram as classDiagram_v2} from 'mermaid/dist/classDiagram-v2-f2320105';
+  import {diagram as erDiagram} from 'mermaid/dist/erDiagram-9861fffd';
+  import {diagram as flowchart} from 'mermaid/dist/flowchart-elk-definition-4a651766';
+  import {diagram as flowDiagram} from 'mermaid/dist/flowDiagram-66a62f08';
+  import {diagram as flowDiagram_v2} from 'mermaid/dist/flowDiagram-v2-96b9c2cf';
+  import {diagram as ganttDiagram} from 'mermaid/dist/ganttDiagram-c361ad54';
+  import {diagram as gitGraphDiagram} from 'mermaid/dist/gitGraphDiagram-72cf32ee';
+  import {diagram as infoDiagram} from 'mermaid/dist/infoDiagram-f8f76790';
+  import {diagram as journeyDiagram} from 'mermaid/dist/journeyDiagram-49397b02';
+  import {diagram as mindmap_diagram} from 'mermaid/dist/mindmap-definition-fc14e90a';
+  import {diagram as pieDiagram} from 'mermaid/dist/pieDiagram-8a3498a8';
+  import {diagram as quadrantDiagram} from 'mermaid/dist/quadrantDiagram-120e2f19';
+  import {diagram as requirementDiagram} from 'mermaid/dist/requirementDiagram-deff3bca';
+  import {diagram as sankeyDiagram} from 'mermaid/dist/sankeyDiagram-04a897e0';
+  import {diagram as sequenceDiagram} from 'mermaid/dist/sequenceDiagram-704730f1';
+  import {diagram as stateDiagram} from 'mermaid/dist/stateDiagram-587899a1';
+  import {diagram as stateDiagram_v2} from 'mermaid/dist/stateDiagram-v2-d93cdb3a';
+  import {diagram as xychartDiagram} from 'mermaid/dist/xychartDiagram-e933f94c';
 
-  /*
   mermaid.initialize({
-    startOnLoad:true
+    startOnLoad: false,
+    securityLevel: 'strict'
   });
-  */
 
 
   /* костыль, но вебпак я не поборол.
